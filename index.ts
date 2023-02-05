@@ -114,21 +114,21 @@ function wrapMiddlewares(original: WrappedFunction, info: WrapInfo) {
     }
     if(typeof reqIdx == undefined) return original;
     let wrapped: WrappedFunction = function (...args) {
+        const req: Px5Request|null = typeof reqIdx == 'number' ? args[reqIdx] : null;
+        const next = typeof nextIdx == 'number' ? args[nextIdx] : null;
+        const res: Px5Response|null = typeof resIdx == 'number' ? args[resIdx] : null;
         //@ts-ignore
-        if(!reqIdx || !resIdx || !nextIdx) return original.apply(this, args);
-        const req: Px5Request = args[reqIdx];
-        const next = args[nextIdx];
-        const res: Px5Response = args[resIdx];
+        if(!req) return original.apply(this, args);
         req[PX5_PATH] = info.path;
         if(!req[PX5_PATH_STACK_FREEZE]) {
             if(!req[PX5_PATH_STACK]) req[PX5_PATH_STACK] = [];
             req[PX5_PATH_STACK].push(info.path);
         }
-        if(next) {
+        if(next && nextIdx) {
             const wrappedNext = wrapNext(next, req, info);
             if(next != wrappedNext) args[nextIdx] = wrappedNext;
         }
-        wrapResSend(res, req, info);
+        if(res) wrapResSend(res, req, info);
         //@ts-ignore
         const returnValue = original.apply(this, args);
         return returnValue;
