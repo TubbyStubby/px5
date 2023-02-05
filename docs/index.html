@@ -24,11 +24,11 @@
 <p>This patches application and Router&#39;s use, get, put, post, delete and patch methods to do the following things -</p>
 <ul>
 <li>Whenever any handler passed to those functions is called, the path it was mounted on is added to a stack.</li>
-<li>If the handler has <code>next</code> method then the path is popped from the stack.</li>
-<li>If handler is errorware then stack is not updated.</li>
-<li>Once <code>res.send</code> is invoked then stack is frozen and is not updated any further.</li>
+<li>If the handler has a <code>next</code> method and it is invoked then path is popped from the stack.</li>
+<li>If handler is an errorware then stack is not updated.</li>
+<li>Freezes the stack once <code>res.send</code> is invoked and it is not updated any further.</li>
 </ul>
-<p>Final the state of the stack represents the route the request took.</p>
+<p>Final state of the stack represents the route the request took.</p>
 
 <a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
   <h2>Usage</h2>
@@ -39,7 +39,7 @@
 <ol>
 <li>Get path taken by request so far</li>
 </ol>
-<pre><code class="language-js"><span class="hl-2">px5</span><span class="hl-1">.</span><span class="hl-5">getNormalizedPath</span><span class="hl-1">(</span><span class="hl-2">req</span><span class="hl-1">); </span><span class="hl-4">// returns - /api/order/:type</span>
+<pre><code class="language-js"><span class="hl-2">px5</span><span class="hl-1">.</span><span class="hl-5">getNormalizedPath</span><span class="hl-1">(</span><span class="hl-2">req</span><span class="hl-1">); </span><span class="hl-4">// example: /api/order/:type</span>
 </code></pre>
 <ol start="2">
 <li>If you want to manually freeze the stack it can be done like this</li>
