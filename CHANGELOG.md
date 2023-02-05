@@ -1,5 +1,11 @@
 # px5
 
+## 0.0.8
+
+### Patch Changes
+
+- dd6d685: documentation update
+
 ## 0.0.7
 
 ### Patch Changes
