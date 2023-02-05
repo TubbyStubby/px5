@@ -1,0 +1,41 @@
+{
+  "name": "px5",
+  "version": "0.0.3",
+  "description": "Patcher for express",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup index.ts --format cjs,esm --dts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TubbyStubby/px5.git"
+  },
+  "keywords": [
+    "monkeypatch",
+    "express",
+    "wrap",
+    "shimmer"
+  ],
+  "author": "TubbyStubby",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TubbyStubby/px5/issues"
+  },
+  "homepage": "https://github.com/TubbyStubby/px5#readme",
+  "devDependencies": {
+    "@changesets/cli": "^2.26.0",
+    "@types/express": "^4.17.17",
+    "@types/shimmer": "^1.0.2",
+    "express": "^4.18.2",
+    "tsup": "^6.5.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "require-in-the-middle": "^6.0.0",
+    "shimmer": "^1.2.1"
+  }
+}
