@@ -1,5 +1,11 @@
 # px5
 
+## 0.0.6
+
+### Patch Changes
+
+- 095e820: update release stuff
+
 ## 0.0.5
 
 ### Patch Changes
