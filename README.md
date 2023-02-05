@@ -4,11 +4,11 @@ Express patcher to add extra route info to request object - `req`. Can be used f
 ## How it works
 This patches application and Router's use, get, put, post, delete and patch methods to do the following things -
 - Whenever any handler passed to those functions is called, the path it was mounted on is added to a stack.
-- If the handler has `next` method then the path is popped from the stack.
-- If handler is errorware then stack is not updated.
-- Once `res.send` is invoked then stack is frozen and is not updated any further.
+- If the handler has a `next` method and it is invoked then path is popped from the stack.
+- If handler is an errorware then stack is not updated.
+- Freezes the stack once `res.send` is invoked and it is not updated any further.
 
-Final the state of the stack represents the route the request took.
+Final state of the stack represents the route the request took.
 
 ## Usage
 
@@ -27,7 +27,7 @@ once patch is applied successfully following operations can be performed -
 1. Get path taken by request so far
 
 ```js
-px5.getNormalizedPath(req); // returns - /api/order/:type
+px5.getNormalizedPath(req); // example: /api/order/:type
 ```
 
 2. If you want to manually freeze the stack it can be done like this
