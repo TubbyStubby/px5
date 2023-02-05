@@ -1,5 +1,11 @@
 # px5
 
+## 0.0.7
+
+### Patch Changes
+
+- 8a0a01e: update setup node in publish
+
 ## 0.0.6
 
 ### Patch Changes
