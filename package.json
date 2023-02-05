@@ -1,6 +1,6 @@
 {
   "name": "px5",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Patcher for express",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
