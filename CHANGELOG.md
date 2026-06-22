@@ -1,5 +1,11 @@
 # px5
 
+## 0.0.10
+
+### Patch Changes
+
+- c213942: Optimized getNormalizedPath
+
 ## 0.0.9
 
 ### Patch Changes
