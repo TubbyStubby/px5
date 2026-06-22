@@ -153,14 +153,15 @@ function wrapNext(original: WrappedFunction, req: Px5Request, info: WrapInfo) {
 
 /** Wraps send to freeze path stack whenever it is called */
 function wrapResSend(res: Px5Response, req: Px5Request, info: WrapInfo) {
+    if((res.send as WrappedFunction)?.[wrapSymbol]) return;
     shimmer.wrap(res, 'send', function (original: (...args: any[]) => any) {
-        if(original.__wrapped) return original;
-        const wrapped = function (...args: any[]) {
+        const wrapped: WrappedFunction = function (...args: any[]) {
             freezeStack(req);
             // @ts-ignore
             return original.apply(this, args);
         }
         mimicFunction(original, wrapped);
+        wrapped[wrapSymbol] = true;
         return wrapped;
     });
 }
@@ -175,10 +176,13 @@ function mimicFunction(original: () => any, mime: () => any) {
 
 /** Combines paths in the stack to form complete route. This will fix any extra leading and trailing slash '/'. */
 export function getNormalizedPath(req: Px5Request) {
-    if(req[PX5_PATH_STACK] && req[PX5_PATH_STACK].length > 0) {
-        let path = req[PX5_PATH_STACK].join('');
-        path = '/' + path.replace(/^(?:\/+)([^/])/, '$1').replace(/\/+$/, '');
-        return path;
+    const stack = req[PX5_PATH_STACK];
+    if(stack && stack.length > 0) {
+        const s = stack.join('');
+        let start = 0, end = s.length;
+        while(start < end && s.charCodeAt(start) === 47) start++;
+        while(end > start && s.charCodeAt(end - 1) === 47) end--;
+        return '/' + s.slice(start, end);
     }
 }
 
